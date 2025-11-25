@@ -13,6 +13,10 @@
         Générez des exercices, testez vos connaissances.
       </p>
 
+      <% if user_signed_in? %>
+        <%= link_to "Start", new_chat_path, class: " btn btn-primary"  %>
+      <% end %>
+
     </div>
   </div>
 </div>
