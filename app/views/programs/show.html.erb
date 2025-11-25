@@ -1,0 +1,9 @@
+<h1><%= @program.title %></h1>
+
+<p><strong>Difficulty:</strong> <%= @program.difficulty %></p>
+<p><strong>Language:</strong> <%= @program.language %></p>
+<p><strong>Completion:</strong> <%= @program.completion_percentage %>%</p>
+<p><strong>Time Constraint:</strong> <%= @program.time_constraint %></p>
+
+<%= link_to "Edit", edit_program_path(@program) %> |
+<%= link_to "Back to Programs", programs_path %>

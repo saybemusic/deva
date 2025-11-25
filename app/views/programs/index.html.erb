@@ -1,0 +1,10 @@
+<div>
+  <% @programs.each do |program| %>
+  <%= program.title %>
+  <%= program.difficulty %>
+  <%= program.language %>
+  <%= program.completion_percentage %>
+
+  <%= link_to "Show", program_path(program) %> |
+  <%= link_to "Delete", program_path(program), method: :delete, data: { confirm: "Are you sure?" } %>
+</div>
