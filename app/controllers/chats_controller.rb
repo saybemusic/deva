@@ -1,37 +1,27 @@
 class ChatsController < ApplicationController
 
-  SYSTEM_PROMPT = ""
 
   def index
     @chats = Chat.all
   end
 
   def show
-    @chat = current_user.chats.find(params[:chat_id])
+    @chat = current_user.chats.find(params[:id])
     @message = Message.new
   end
 
-  def new
-    @chat = Chat.new
-  end
 
   def create
+    @chat = Chat.new(title: "New chat")
+    @chat.user = current_user
 
-    @chat = current_user.chats.find(params[:chat_id])
-    @program = @chat.program
-
-    @message = Message.new(message_params)
-    @message.chat = @chat
-    @message.role = "user"
-
-    if @message.save
-      ruby_llm_chat = RubyLLM.chat
-      response = ruby_llm_chat.with_instructions(SYSTEM_PROMPT).ask(@message.content)
-      Message.create(role: "assistant", content: response.content, chat: @chat)
-
-      redirect_to chat_messages_path(@chat)
+    if @chat.save
+      # ruby_llm_chat = RubyLLM.chat
+      # response = ruby_llm_chat.with_instructions(SYSTEM_PROMPT).ask(@message.content)
+      # Message.create(role: "assistant", content: response.content, chat: @chat)
+      redirect_to chat_path(@chat)
     else
-      render "chats/show", status: :unprocessable_entity
+      render root_path, status: :unprocessable_entity
     end
   end
 
@@ -42,6 +32,13 @@ class ChatsController < ApplicationController
   end
 
   private
+
+  def chat_params
+    params.require(:chat).permit(
+      :name,
+      messages_attributes: [:content]  # <<< autorise le premier message
+    )
+  end
 
   def message_params
     params.require(:message).permit(:content)

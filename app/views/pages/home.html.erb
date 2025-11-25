@@ -14,7 +14,7 @@
       </p>
 
       <% if user_signed_in? %>
-        <%= link_to "Start", new_chat_path, class: " btn btn-primary"  %>
+        <%= button_to "Start", chats_path ,method: :post, class: " btn btn-primary"  %>
       <% end %>
 
     </div>

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # end
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :chats, except: [:edit, :update] do
+  resources :chats, only: [:index, :show, :create] do
     resources :messages, except: :show
   end
 
@@ -22,5 +22,6 @@ Rails.application.routes.draw do
 
   resources :programs, only: [:destroy]
   resources :chats, only: [:destroy]
+
 
 end
