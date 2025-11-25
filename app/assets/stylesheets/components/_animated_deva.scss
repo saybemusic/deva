@@ -1,0 +1,75 @@
+.animated-heading {
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.animated-heading h1 {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.animated-letter {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.animated-letter span {
+  display: block;
+  line-height: 1.1;
+  white-space: nowrap;
+  width: max-content;
+  animation: scrollWords 10s linear infinite;
+}
+
+/* Dark mode */
+.theme-dark .animated-heading {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.theme-light .animated-heading {
+  background-color: transparent;
+}
+
+/* Animation keyframes : chaque mot visible un temps égal */
+@keyframes scrollWords {
+  0%, 16.66%   { transform: translateY(0%); }
+  20%, 36.66%  { transform: translateY(-100%); }
+  40%, 56.66%  { transform: translateY(-200%); }
+  60%, 76.66%  { transform: translateY(-300%); }
+  80%, 96.66%  { transform: translateY(-400%); }
+  100%         { transform: translateY(0%); }
+}
+
+.animated-letter .ruby {
+  color: #CC342D;   /* rouge Ruby */
+}
+
+.animated-letter .python {
+  color: #306998;   /* bleu Python */
+}
+
+.animated-letter .css {
+  color: #264DE4;   /* bleu CSS */
+}
+
+.animated-letter .js {
+  color: #F7DF1E;   /* jaune JavaScript */
+}
+
+.animated-letter .html {
+  color: #E34C26;   /* orange HTML */
+}
+
+.animated-letter span {
+  animation: scrollWords 10s linear infinite;
+}
+
+/* Thèmes */
+.theme-light .animated-heading { color: #0d6efd; }
+.theme-dark .animated-heading { color: #f1f1f1; }
