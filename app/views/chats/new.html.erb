@@ -1,7 +1,11 @@
 <% if user_signed_in? %>
-  <h3>Qu'elle langage veut tu apprendre ?</h3>
+  <div class="container my-5">
+    <div class="text-center">
+      <h3 class="mb-4">Quel langage veux-tu apprendre ?</h3>
 
-  <div class="d-flex justify-content-center gap-3 mt-4">
-    <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+      <div class="d-flex justify-content-center gap-3">
+        <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
+      </div>
+    </div>
   </div>
 <% end %>

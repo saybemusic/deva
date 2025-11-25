@@ -1,0 +1,61 @@
+/* =====================================
+   LOGO DEVA — Animation A automatique
+===================================== */
+
+/* Le conteneur fixe la zone visible */
+.deva-logo-scroll {
+  font-family: "Fira Code", monospace;
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  gap: 2px;
+  user-select: none;
+  line-height: 1;
+  height: 2rem;       /* fixe la hauteur */
+  overflow: hidden;   /* cache la lettre quand elle sort */
+}
+
+.deva-logo-scroll span {
+  display: inline-block;
+}
+
+/* Animation autonome */
+.scroll-A {
+  display: inline-block;
+  animation: scrollA 2.2s ease-in-out infinite;
+}
+
+/* Animation : A monte → disparaît → revient d’en bas → remonte à la place */
+@keyframes scrollA {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-120%);  /* A sort par le haut */
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(120%);   /* A revient par le bas */
+    opacity: 0;
+  }
+  80% {
+    transform: translateY(0);       /* A revient à sa place */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* THEMES */
+.theme-light .deva-logo-scroll {
+  color: #222;
+  background-color: transparant;
+}
+
+.theme-dark .deva-logo-scroll {
+  color: #f1f1f1;
+  background-color: transparent;
+}
