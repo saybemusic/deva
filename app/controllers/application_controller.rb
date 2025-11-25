@@ -12,18 +12,18 @@ class ApplicationController < ActionController::Base
   end
 
 
-  private
+  # private
 
-  def resource
-    @resource
-  end
+  # def resource
+  #   @resource
+  # end
 
-  def resource_name
-    @resource_name
-  end
+  # def resource_name
+  #   @resource_name
+  # end
 
-  def devise_mapping
-    @devise_mapping
-  end
+  # def devise_mapping
+  #   @devise_mapping
+  # end
 
 end
