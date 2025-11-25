@@ -6,5 +6,5 @@
   <%= program.completion_percentage %>
 
   <%= link_to "Show", program_path(program) %> |
-  <%= link_to "Delete", program_path(program), method: :delete, data: { confirm: "Are you sure?" } %>
+  <%= link_to "Delete", program_path(program), data: {turbo_method: :delete, turbo_confirm: "Are you sure ?" } %>
 </div>
