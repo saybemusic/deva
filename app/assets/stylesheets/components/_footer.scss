@@ -1,0 +1,43 @@
+/* ==================================
+   FOOTER STYLING
+================================== */
+
+.custom-footer {
+  font-size: 0.9rem;
+}
+
+/* Light mode footer */
+.theme-light .custom-footer {
+  background: #f0f0f0;
+  color: #333;
+}
+
+/* Dark mode footer */
+.theme-dark .custom-footer {
+  background: #1f1f1f;
+  color: #ccc;
+}
+
+
+/* ==================================
+   FOOTER POSITION RELATIVE / sticky
+================================== */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1; /* pousse le footer vers le bas */
+}
+
+.custom-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}

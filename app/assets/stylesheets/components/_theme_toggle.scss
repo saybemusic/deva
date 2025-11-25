@@ -1,0 +1,68 @@
+/* ===========================
+   Thème clair
+=========================== */
+.theme-light {
+  background-color: #f8f9fa;
+  color: #212529;
+
+  header,
+  footer {
+    background-color: #e9ecef;
+    color: #212529;
+  }
+
+  .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+
+  .alert {
+    background-color: #ffc;
+    color: #212529;
+  }
+}
+
+/* ===========================
+   Thème sombre
+=========================== */
+.theme-dark {
+  background-color: #121212;
+  color: #f1f1f1;
+
+  header,
+  footer {
+    background-color: #1f1f1f;
+    color: #f1f1f1;
+  }
+
+  .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #f1f1f1;
+  }
+
+  .alert {
+    background-color: #333;
+    color: #f1f1f1;
+    border: none;
+  }
+}
+
+/* ===========================
+   Général
+=========================== */
+
+main {
+  flex: 1;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
