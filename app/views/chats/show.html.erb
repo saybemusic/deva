@@ -31,7 +31,7 @@
       </div>
     <% end %>
     <% if @chat.messages.where(role: "assistant").count == 3 %>
-      <%= link_to "Commencer la révision", root_path, class: "btn btn-success w-100" %>
+      <%= link_to "Commencer la révision", root_path, class: "btn btn-success w-100 text-white" %>
     <% end %>
   </div>
 
