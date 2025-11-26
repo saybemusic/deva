@@ -74,7 +74,6 @@ body.theme-light {
 .theme-dark main,
 .theme-dark p,
 .theme-dark span,
-.theme-dark a,
 .theme-dark li,
 .theme-dark h1,
 .theme-dark h2,
@@ -88,6 +87,10 @@ body.theme-light {
 
 .theme-dark a {
   color: #212529;
+}
+
+.theme-dark p a{
+  color: #fff;
 }
 
 .theme-dark .btn-primary {
@@ -109,6 +112,11 @@ body.theme-light {
   color: #f1f1f1;
   border: none;
   transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease;
+}
+
+.theme-dark .form-session-login {
+  color: #fff;
+  background-color: #121212;
 }
 
 /* ===========================
