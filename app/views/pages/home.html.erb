@@ -18,14 +18,13 @@
     </div>
 
 
-      <!-- Proposition de valeur -->
       <p class="lead mb-4">
         La plateforme qui simplifie vos révisions<br>
         Générez des exercices, testez vos connaissances.
       </p>
 
       <% if user_signed_in? %>
-        <%= button_to "Start", chats_path ,method: :post, class: " btn btn-primary"  %>
+        <%= button_to "Commencer", chats_path ,method: :post, class: " btn btn-primary"  %>
       <% end %>
 
     </div>
