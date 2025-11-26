@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
 
 
   SYSTEM_PROMPT = " Tu est de professeur en langage de programmation
-  Je voudrais apprendre ce langage : #{@langage}, fais moi le nombre d'exo qu'il me faut pour cette durée: #{@durée}. n'oublie pas mon niveau : #{@niveau}
+  Je voudrais apprendre ce langage : #{@langage}, fais moi le nombre d'exo (sans me donner la réponse) qu'il me faut pour cette durée: #{@durée}. n'oublie pas mon niveau : #{@niveau}
   Ta réponse doit être sous un format markdown uniquement et fais des saut de ligne entre chaque exos
 
   exemple :
