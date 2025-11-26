@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     resources :exercises, only: [:index, :show]
   end
 
+  # resources :exercises, only: [] do
+  #   resources :chats, only: [:create]
+  # end
+
   resources :programs, only: [:destroy]
   resources :chats, only: [:destroy]
 
