@@ -1,8 +1,10 @@
 
 <div class="container">
   <div class="col-8">
-    <h2 class="mt-2 mb-5"><%= @chat.title %></h2>
+    <h2 class="mt-2 mb-3"><%= @chat.title %></h2>
+  </div>
 
+  <div class="overflow-auto col-8 border border-light rounded py-3 mb-3" style="height : 60vh">
     <div class="container col6 d-flex justify-content-start">
           <p class=" w-auto py-2 px-5 bg-warning text-dark rounded">Selectionnez le langage que vous voulez apprendre ?</p>
     </div>
@@ -18,6 +20,8 @@
         </div>
       <% end %>
     <% end %>
+  </div>
+  <div class="cointainer col-8">
     <% if @chat.messages.where(role: "assistant").count < 3 %>
       <div id="new_message_container">
         <%= simple_form_for [@chat, @message] do |f| %>
@@ -29,6 +33,6 @@
     <% if @chat.messages.where(role: "assistant").count == 3 %>
       <%= link_to "Commencer la révision", root_path, class: "btn btn-success w-100" %>
     <% end %>
-
   </div>
+
 </div>
