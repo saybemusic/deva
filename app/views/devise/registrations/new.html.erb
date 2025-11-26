@@ -1,5 +1,6 @@
-<h2>Sign up</h2>
+<h2 class="login-session">Sign up </h2>
 
+<div class="form-session-login">
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
@@ -15,11 +16,11 @@
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
+    <p><%= render "devise/shared/links" %></p>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+  <div class="theme-toggle text-center" id="theme-toggle" >
+    <%= f.button :submit, "Create my account" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+</div>
