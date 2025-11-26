@@ -25,9 +25,16 @@
       </ul>
 
       <!-- Theme toggle -->
-      <button id="theme-toggle" class="btn btn-outline-light btn-sm me-3">
-        Dark
-      </button>
+      <div data-controller="theme">
+        <button
+          id="theme-toggle"
+          data-theme-target="button"
+          data-action="click->theme#toggle"
+          class="theme-toggle">
+          Light
+        </button>
+      </div>
+
 
       <!-- Avatar -->
       <% if user_signed_in? %>

@@ -4,22 +4,55 @@
 .theme-light {
   background-color: #f8f9fa;
   color: #212529;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
 
-  header,
-  footer {
-    background-color: #e9ecef;
-    color: #212529;
-  }
+body.theme-light {
+  background-color: #f8f9fa;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23ccc'/%3E%3C/svg%3E");
+}
 
-  .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-  }
+.theme-light header,
+.theme-light footer {
+  background-color: #e9ecef;
+  color: #212529;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
 
-  .alert {
-    background-color: #ffc;
-    color: #212529;
-  }
+.theme-light main,
+.theme-light p,
+.theme-light span,
+.theme-light a,
+.theme-light li,
+.theme-light h1,
+.theme-light h2,
+.theme-light h3,
+.theme-light h4,
+.theme-light h5,
+.theme-light h6 {
+  transition: color 0.8s ease;
+  color: #212529;
+}
+
+.theme-light .btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: #fff;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+.theme-light .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+.theme-light .alert {
+  background-color: #ffc;
+  color: #212529;
+  border: 1px solid #ddd;
+  transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease;
 }
 
 /* ===========================
@@ -28,35 +61,100 @@
 .theme-dark {
   background-color: #121212;
   color: #f1f1f1;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
 
-  header,
-  footer {
-    background-color: #1f1f1f;
-    color: #f1f1f1;
-  }
+.theme-dark header,
+.theme-dark footer {
+  background-color: #1f1f1f;
+  color: #f1f1f1;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
 
-  .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-  }
+.theme-dark main,
+.theme-dark p,
+.theme-dark span,
+.theme-dark a,
+.theme-dark li,
+.theme-dark h1,
+.theme-dark h2,
+.theme-dark h3,
+.theme-dark h4,
+.theme-dark h5,
+.theme-dark h6 {
+  transition: color 0.8s ease;
+  color: #f1f1f1;
+}
 
-  .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-    color: #f1f1f1;
-  }
+.theme-dark .btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: #fff;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
 
-  .alert {
-    background-color: #333;
-    color: #f1f1f1;
-    border: none;
-  }
+.theme-dark .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #f1f1f1;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+.theme-dark .alert {
+  background-color: #333;
+  color: #f1f1f1;
+  border: none;
+  transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease;
+}
+
+/* ===========================
+   Bouton toggle
+=========================== */
+.theme-toggle {
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  user-select: none;
+  background-color: transparent;
+  color: inherit;
+  margin-right: 8px;
+}
+
+body.theme-dark {
+  background-color: #121212;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23666'/%3E%3C/svg%3E");
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
+}
+
+.theme-light .theme-toggle {
+  background-color: #ffffff;
+  color: #212529;
+  border-color: #ccc;
+}
+
+.theme-light .theme-toggle:hover {
+  background-color: #e9ecef;
+}
+
+.theme-dark .theme-toggle {
+  background-color: #2c2c2c;
+  color: #f1f1f1;
+  border-color: #555;
+}
+
+.theme-dark .theme-toggle:hover {
+  background-color: #3d3d3d;
 }
 
 /* ===========================
    Général
 =========================== */
-
 main {
   flex: 1;
 }
