@@ -12,7 +12,7 @@ class ChatsController < ApplicationController
 
 
   def create
-    @chat = Chat.new(title: "New chat")
+    @chat = Chat.new(title: "Nouvelle révision")
     @chat.user = current_user
 
     if @chat.save

@@ -28,7 +28,7 @@
       <% if user_signed_in? %>
         <%= button_to "Commencer", chats_path ,method: :post, class: "theme-toggle", id: "theme-toggle"  %>
         <% else %>
-        <%= link_to "Login", new_user_session_path,  id: "theme-toggle", class: "theme-toggle" %>
+        <%= link_to "Se connecter", new_user_session_path,  id: "theme-toggle", class: "theme-toggle" %>
       <% end %>
 
     </div>
