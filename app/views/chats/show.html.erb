@@ -1,19 +1,29 @@
-<%= @chat.title %>
 
-<% @chat.messages.each do |message| %>
-  <% if message.role == "user" %>
-    <div class="container col6 d-flex justify-content-end">
-      <p><%= message.content %></p>
-    </div>
-  <% else %>
+<div class="container">
+  <div class="col-8">
+    <h2 class="mt-2 mb-5"><%= @chat.title %></h2>
+
     <div class="container col6 d-flex justify-content-start">
-      <p><%= message.content %></p>
+          <p class=" w-auto py-2 px-5 bg-warning text-dark rounded">Selectionnez le langage que vous voulez apprendre ?</p>
     </div>
-  <% end %>
-<% end %>
-<div id="new_message_container">
-  <%= simple_form_for [@chat, @message] do |f| %>
-    <%= f.input :content, label: "Selectionnez le langage que vous voulez apprendre ?", required: true, placeholder: "Javascript, ruby, python ..." %>
-    <%= f.button :submit, 'Envoyer', class: 'btn btn-primary' %>
-  <% end %>
+
+    <% @chat.messages.each do |message| %>
+      <% if message.role == "user" %>
+        <div class=" container col6 d-flex justify-content-end">
+          <p class=" my-3 py-2 px-5 bg-success rounded-pill"><%= message.content %></p>
+        </div>
+      <% else %>
+        <div class="container col6 d-flex justify-content-start text-dark messageIA ">
+          <span class="mb-3 py-2 px-5 bg-warning text-dark rounded"><%= raw(render_markdown(message.content))%></span>
+        </div>
+      <% end %>
+    <% end %>
+    <div id="new_message_container">
+      <%= simple_form_for [@chat, @message] do |f| %>
+        <%= f.input :content, label: "Ecris ta réponse ici", required: true, placeholder: "Ecris ici ..." %>
+        <%= f.button :submit, 'Envoyer', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+
+  </div>
 </div>
