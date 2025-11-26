@@ -18,12 +18,14 @@
         </div>
       <% end %>
     <% end %>
-    <div id="new_message_container">
-      <%= simple_form_for [@chat, @message] do |f| %>
-        <%= f.input :content, label: "Ecris ta réponse ici", required: true, placeholder: "Ecris ici ..." %>
-        <%= f.button :submit, 'Envoyer', class: 'btn btn-primary' %>
-      <% end %>
-    </div>
+    <% if @chat.messages.where(role: "assistant").count < 3 %>
+      <div id="new_message_container">
+        <%= simple_form_for [@chat, @message] do |f| %>
+          <%= f.input :content, label: "Ecris ta réponse ici", required: true, placeholder: "Ecris ici ..." %>
+          <%= f.button :submit, 'Envoyer', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    <% end %>
 
   </div>
 </div>
