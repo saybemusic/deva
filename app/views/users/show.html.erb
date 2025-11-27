@@ -1,0 +1,8 @@
+<h1>Profil de <%= @user.first_name %></h1>
+
+<h2>Programmes</h2>
+<ul>
+  <% @user.programs.each do |program| %>
+    <li><%= program.title %></li>
+  <% end %>
+</ul>
