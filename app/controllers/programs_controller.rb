@@ -1,7 +1,7 @@
 require 'json'
 
 class ProgramsController < ApplicationController
-
+  
   CREATEJSON = "Tu es un senior dev en Ruby.
 
 Ta réponse doit être UNIQUEMENT un objet JSON valide.
@@ -41,7 +41,7 @@ Renvie exactement un objet JSON de ce type :
   def update
     @program = Program.find(params[:id])
     if @program.update(program_params)
-      redirect_to @program, notice: "Program was successfully updated."
+      redirect_to @program, notice: "Le programme a été modifié."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -54,23 +54,30 @@ Renvie exactement un objet JSON de ce type :
   end
 
   def create
-
     @chat = current_user.chats.find(params[:format])
+    ruby_llm = RubyLLM.chat
 
-    user_messages = @chat.messages
-    .where(role: "user")
-    .order(:created_at)
-    .limit(3)
+    user_messages = @chat.messages.where(role: "user").order(:created_at).limit(3)
+    langage = user_messages[0]&.content
+    niveau = user_messages[1]&.content
+    duree = user_messages[2]&.content
 
+    niveau_prompt = "
+      L'utilisateur a répondu son niveau
+      Interprète cette réponse et renvoie toujours : Débutant, Intermédiaire ou Avancé."
+
+    standardized_level = ruby_llm.with_instructions(niveau_prompt).ask(niveau).content
+    
     @ia_message = @chat.messages.where(role: "assistant").last
 
     @program = Program.new(
       title: @chat.title,
-      difficulty: user_messages[1]&.content,
-      language: user_messages[0]&.content,
+      language: langage,
+      difficulty: standardized_level,
+      time_constraint: duree,
       chat: @chat,
       user: current_user
-      )
+    )
 
     if @program.save
       @ruby_llm_chat = RubyLLM.chat
@@ -85,7 +92,7 @@ Renvie exactement un objet JSON de ce type :
         )
         @exo.save
       end
-      redirect_to program_path(@program), notice: "Program was successfully created."
+      redirect_to program_path(@program), notice: "Le programme a été créé avec succés."
     else
       render :new, status: :unprocessable_entity
     end

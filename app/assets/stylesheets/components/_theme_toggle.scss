@@ -119,6 +119,11 @@ body.theme-light {
   background-color: #121212;
 }
 
+.theme-dark .card-body {
+  color:#fff;
+  background-color: #121212;
+}
+
 /* ===========================
    Bouton toggle
 =========================== */
@@ -133,7 +138,7 @@ body.theme-light {
   background-color: transparent;
   color: inherit;
   margin-right: 8px;
-  
+
 }
 
 /* Thème sombre */
