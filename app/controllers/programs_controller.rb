@@ -1,11 +1,26 @@
-class ProgramsController < ApplicationController
-#  SYSTEM_PROMPT = " Tu est de professeur en langage de programmation
-#   Je voudrais apprendre ce langage : #{@langage}, fais moi le nombre d'exo (sans me donner la réponse) qu'il me faut pour cette durée: #{@durée}. n'oublie pas mon niveau : #{@niveau}
-#   Ta réponse doit être sous un format markdown uniquement et fais des saut de ligne entre chaque exos
+require 'json'
 
-#   exemple :
-#   Exo 1 :
-#   Exo 2 :"
+class ProgramsController < ApplicationController
+  
+  CREATEJSON = "Tu es un senior dev en Ruby.
+
+Ta réponse doit être UNIQUEMENT un objet JSON valide.
+N’ajoute aucun texte avant ou après le JSON.
+N’utilise pas de markdown, pas de commentaires, pas de trailing comma.
+Toutes les clés doivent être des clés pour ruby et les valeur seront des string entre guillement double
+
+Renvie exactement un objet JSON de ce type :
+
+{
+  exercices: [
+    {
+      title: 'string',
+      enonce: 'string',
+      correction: 'string'
+    }
+  ],
+  conseil: 'string'
+}"
 
   def index
     @programs = Program.all
@@ -53,6 +68,8 @@ class ProgramsController < ApplicationController
 
     standardized_level = ruby_llm.with_instructions(niveau_prompt).ask(niveau).content
     
+    @ia_message = @chat.messages.where(role: "assistant").last
+
     @program = Program.new(
       title: @chat.title,
       language: langage,
@@ -63,7 +80,19 @@ class ProgramsController < ApplicationController
     )
 
     if @program.save
-      redirect_to program_path(@program), notice: "Le programme a été créé."
+      @ruby_llm_chat = RubyLLM.chat
+      listExo = @ruby_llm_chat.with_instructions(CREATEJSON).ask(@ia_message.content)
+      data = JSON.parse(listExo.content)
+
+      data["exercices"].each do |exo|
+        @exo = Exercise.new(
+          program: @program,
+          title: exo["title"],
+          content: exo["enonce"]
+        )
+        @exo.save
+      end
+      redirect_to program_path(@program), notice: "Le programme a été créé avec succés."
     else
       render :new, status: :unprocessable_entity
     end

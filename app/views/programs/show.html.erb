@@ -1,13 +1,29 @@
 <div class="container">
+  <h1 class="program-show-title"><%= @program.title %></h1>
 
-<h1><%= @program.title %></h1>
-  <p><strong>Difficulty:</strong> <%= @program.difficulty %></p>
-  <p><strong>Language:</strong> <%= @program.language %></p>
-  <p><strong>Completion:</strong> <%= @program.completion_percentage %>%</p>
-  <p><strong>Time Constraint:</strong> <%= @program.time_constraint %></p>
+
   <div class="exercises-container">
+    <div class="program-info">
+      <p><strong>Ton niveau :</strong> <%= @program.difficulty %></p>
+      <p><strong>Langage souhaité :</strong> <%= @program.language %></p>
+      <p><strong>Complété :</strong> <%= @program.completion_percentage %>%</p>
+      <p><strong>Temps souhaité :</strong> <%= @program.time_constraint %></p>
+    </div>
+    <p><strong>Exercices :</strong></p>
+      <% @program.exercises.each do |exercise| %>
+        <div class="card m-3 p-3">
+          <%= link_to program_exercise_path(@program, exercise), class: "text-decoration-none" do %>
+            <h4><%= exercise.title %></h4>
+          <% end %>
+            <p><%= exercise.content %></p>
+      </div>
+      <% end %>
+  </div>
+
+  <div class="actions">
+    <%= link_to "Supprimer", program_path(@program),
+                data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" },
+                class: "btn-delete" %>
+    <%= link_to "Retour aux programmes", programs_path, class: "btn-back" %>
   </div>
 </div>
-
-<%= link_to "Edit", edit_program_path(@program) %> |
-<%= link_to "Back to Programs", programs_path %>
