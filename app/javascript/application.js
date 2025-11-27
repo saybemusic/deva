@@ -3,6 +3,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
-import "./controllers/chatfocus_controller.js"
-import "./controllers/scroll_bottom.js"
+import "controllers/chatfocus_controller.js"
+import "controllers/scroll_bottom.js"
 console.log("load");
