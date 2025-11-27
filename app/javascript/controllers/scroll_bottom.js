@@ -1,4 +1,3 @@
-
 document.addEventListener("turbo:load", () => {
   const container = document.getElementById("messages_container");
   if (!container) return;
