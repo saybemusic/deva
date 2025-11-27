@@ -10,15 +10,14 @@
       <p><strong>Temps souhaité :</strong> <%= @program.time_constraint %></p>
     </div>
     <p><strong>Exercices :</strong></p>
-      <div class="card">
-        <% @program.exercises.each do |exercise| %>
-          <%= link_to program_exercise_path(@program, exercise) do %>
-            <p><strong><%= exercise.title %></strong></p>
+      <% @program.exercises.each do |exercise| %>
+        <div class="card m-3 p-3">
+          <%= link_to program_exercise_path(@program, exercise), class: "text-decoration-none" do %>
+            <h4><%= exercise.title %></h4>
           <% end %>
-            <p><strong><%= exercise.finished %></strong></p>
-            <p><strong><%= exercise.content %></strong></p>
-        <% end %>
+            <p><%= exercise.content %></p>
       </div>
+      <% end %>
   </div>
 
   <div class="actions">
