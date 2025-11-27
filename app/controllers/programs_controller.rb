@@ -49,7 +49,7 @@ class ProgramsController < ApplicationController
       )
 
       if @program.save
-        redirect_to program_path(@program), notice: "Program was successfully created."
+        redirect_to program_path(@program), notice: "Nouveau programme crée."
       else
       render :new, status: :unprocessable_entity
     end
