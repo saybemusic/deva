@@ -14,10 +14,12 @@
 
           <div class="d-flex justify-content-between">
             <%= link_to "Voir", program_path(program), class: "theme-toggle", id: "theme-toggle" %>
-            <%= link_to "Supprimer",
+            <%# <%= link_to "Supprimer",
               program_path(program),
               data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" },
               class: "theme-toggle" , id: "theme-toggle"%>
+            <%= button_to "Supprimer", program_path(program), method: :delete, data: { turbo_confirm: "Êtes-vous sûr ?" }, class: "theme-toggle" , id: "theme-toggle" %>
+
           </div>
 
         </div>
