@@ -1,10 +1,11 @@
 <div>
   <% @programs.each do |program| %>
-  <%= program.title %>
-  <%= program.difficulty %>
-  <%= program.language %>
-  <%= program.completion_percentage %>
+    <%= program.title %>
+    <%= program.difficulty %>
+    <%= program.language %>
+    <%= program.completion_percentage %>
 
   <%= link_to "Show", program_path(program) %> |
   <%= link_to "Delete", program_path(program), data: {turbo_method: :delete, turbo_confirm: "Are you sure ?" } %>
+  <% end %>
 </div>
