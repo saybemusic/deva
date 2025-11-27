@@ -1,8 +1,77 @@
-<h1>Profil de <%= @user.first_name %></h1>
+<h1 class="text-start my-4">Salut <%= @user.first_name %> <%= @user.last_name %></h1>
+<h2 class="text-start my-4">Regardez ce que vous avez accompli !</h2>
 
-<h2>Programmes</h2>
-<ul>
-  <% @user.programs.each do |program| %>
-    <li><%= program.title %></li>
+<!-- Row des programmes -->
+<div class="row g-4">
+  <% ["Débutant", "Intermédiaire", "Avancé"].each do |level| %>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm p-3">
+        <h2 class="h5 mb-3">
+          Mes programmes <%= level %> (<%= @user.programs.where(difficulty: level).count %>)
+        </h2>
+
+        <% @user.programs.where(difficulty: level).each_with_index do |program, i| %>
+          <div class="card mb-3 p-3">
+            <p class="fw-bold mb-1">
+              <%= i + 1 %> : <%= program.language %> — <%= program.difficulty %> — <%= program.time_constraint %> —
+              <% if program.completion_percentage.to_i >= 100 %>
+                <span class="text-success">Terminé</span>
+              <% else %>
+                <span class="text-warning">En cours</span>
+              <% end %>
+            </p>
+            <p class="mb-1"><%= program.title %></p>
+            <p class="text-muted small mb-0">
+              Créé le <%= program.created_at.strftime("%d/%m/%Y") %> — <%= program.completion_percentage.to_i %>%
+            </p>
+          </div>
+        <% end %>
+
+        <% if @user.programs.where(difficulty: level).empty? %>
+          <p class="text-muted fst-italic">Aucun programme pour ce niveau.</p>
+        <% end %>
+
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>
+
+<!-- Row séparée pour les graphiques -->
+<div class="row g-4 mt-3">
+  <% ["Débutant", "Intermédiaire", "Avancé"].each do |level| %>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm p-3">
+        <h3 class="h6 mb-2"><%= level %> : Progression moyenne</h3>
+        <canvas id="chart-<%= level.downcase %>" height="150"></canvas>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  <% ["Débutant", "Intermédiaire", "Avancé"].each do |level| %>
+    const ctx<%= level.downcase %> = document.getElementById('chart-<%= level.downcase %>').getContext('2d');
+    const completionAverage<%= level.downcase %> = <%= @user.programs.where(difficulty: level).average(:completion_percentage).to_f.round(2) rescue 0 %>;
+
+    new Chart(ctx<%= level.downcase %>, {
+      type: 'doughnut',
+      data: {
+        labels: ['Complété', 'Restant'],
+        datasets: [{
+          data: [completionAverage<%= level.downcase %>, 100 - completionAverage<%= level.downcase %>],
+          backgroundColor: ['#28a745', '#e0e0e0'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  <% end %>
+});
+</script>
