@@ -6,9 +6,6 @@
   <p><strong>Completion:</strong> <%= @program.completion_percentage %>%</p>
   <p><strong>Time Constraint:</strong> <%= @program.time_constraint %></p>
   <div class="exercises-container">
-    <% @program.exercices.each do |exercise| %>
-    <p><%= exercise.title %></p>
-    <%= link_to "->", program_exercise_path%>
   </div>
 </div>
 

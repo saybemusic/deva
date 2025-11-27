@@ -40,6 +40,7 @@ class MessagesController < ApplicationController
       @langage = user_messages[0]&.content
       @niveau = user_messages[1]&.content
       @durée = user_messages[2]&.content
+
       redirect_to chat_path(@chat)
     else
       render "chats/show", status: :unprocessable_entity
