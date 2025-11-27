@@ -34,6 +34,7 @@ class MessagesController < ApplicationController
       elsif @chat.messages.count == 5
         response = @ruby_llm_chat.with_instructions(SYSTEM_PROMPT).ask(@message.content)
         Message.create(role: "assistant", content: response.content, chat: @chat)
+        @chat.generate_title
       end
       # @langage = @chat.message.where(:role "user").first.content
       user_messages = @chat.messages.where(role: "user").order(:created_at).limit(3)
