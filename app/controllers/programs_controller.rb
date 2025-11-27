@@ -1,4 +1,11 @@
 class ProgramsController < ApplicationController
+#  SYSTEM_PROMPT = " Tu est de professeur en langage de programmation
+#   Je voudrais apprendre ce langage : #{@langage}, fais moi le nombre d'exo (sans me donner la réponse) qu'il me faut pour cette durée: #{@durée}. n'oublie pas mon niveau : #{@niveau}
+#   Ta réponse doit être sous un format markdown uniquement et fais des saut de ligne entre chaque exos
+
+#   exemple :
+#   Exo 1 :
+#   Exo 2 :"
 
   def index
     @programs = Program.all
@@ -19,7 +26,7 @@ class ProgramsController < ApplicationController
   def update
     @program = Program.find(params[:id])
     if @program.update(program_params)
-      redirect_to @program, notice: "Program was successfully updated."
+      redirect_to @program, notice: "Le programme a été modifié."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -32,25 +39,32 @@ class ProgramsController < ApplicationController
   end
 
   def create
-
     @chat = current_user.chats.find(params[:format])
+    ruby_llm = RubyLLM.chat
 
-    user_messages = @chat.messages
-    .where(role: "user")
-    .order(:created_at)
-    .limit(3)
+    user_messages = @chat.messages.where(role: "user").order(:created_at).limit(3)
+    langage = user_messages[0]&.content
+    niveau = user_messages[1]&.content
+    duree = user_messages[2]&.content
 
+    niveau_prompt = "
+      L'utilisateur a répondu son niveau
+      Interprète cette réponse et renvoie toujours : Débutant, Intermédiaire ou Avancé."
+
+    standardized_level = ruby_llm.with_instructions(niveau_prompt).ask(niveau).content
+    
     @program = Program.new(
       title: @chat.title,
-      difficulty: user_messages[1]&.content,
-      language: user_messages[0]&.content,
+      language: langage,
+      difficulty: standardized_level,
+      time_constraint: duree,
       chat: @chat,
       user: current_user
-      )
+    )
 
-      if @program.save
-        redirect_to program_path(@program), notice: "Program was successfully created."
-      else
+    if @program.save
+      redirect_to program_path(@program), notice: "Le programme a été créé."
+    else
       render :new, status: :unprocessable_entity
     end
   end

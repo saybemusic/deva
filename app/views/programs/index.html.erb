@@ -1,11 +1,27 @@
-<div>
+<div class="row">
   <% @programs.each do |program| %>
-    <%= program.title %>
-    <%= program.difficulty %>
-    <%= program.language %>
-    <%= program.completion_percentage %>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
 
-  <%= link_to "Show", program_path(program) %> |
-  <%= link_to "Delete", program_path(program), data: {turbo_method: :delete, turbo_confirm: "Are you sure ?" } %>
+        <div class="card-body">
+          <h5 class="card-title"><%= program.title %></h5>
+
+          <p class="card-text">
+            <p>Difficulté : <%= program.difficulty %></p>
+            <p>Langage : <%= program.language %></p>
+            <p>Progression : <%= program.completion_percentage %>%</p>
+          </p>
+
+          <div class="d-flex justify-content-between">
+            <%= link_to "Voir", program_path(program), class: "theme-toggle", id: "theme-toggle" %>
+            <%= link_to "Supprimer",
+              program_path(program),
+              data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" },
+              class: "theme-toggle" , id: "theme-toggle"%>
+          </div>
+
+        </div>
+      </div>
+    </div>
   <% end %>
 </div>
