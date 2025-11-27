@@ -21,11 +21,11 @@
       <% end %>
     <% end %>
   </div>
-  <div class="cointainer col-8">
+  <div class="col-8">
     <% if @chat.messages.where(role: "assistant").count < 3 %>
       <div id="new_message_container">
         <%= simple_form_for [@chat, @message] do |f| %>
-          <%= f.input :content, label: "Ecris ta réponse ici", required: true, placeholder: "Ecris ici ..." %>
+          <%= f.input :content, label: false, required: true, placeholder: "Ecris ici ...", input_html: { id: "chat_input", class: "form-control w-75" } %>
           <%= f.button :submit, 'Envoyer', class: 'btn btn-primary' %>
         <% end %>
       </div>

@@ -7,7 +7,6 @@ class Chat < ApplicationRecord
 
   belongs_to :user
 
-
   def generate_title
     return unless title == DEFAULT_TITLE
     user_message = messages.where(role: "user").order(:created_at).first
