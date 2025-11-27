@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   resources :chats, only: [:destroy]
 
 
+  get 'profile', to: 'users#show', as: 'profile'
+
 end
