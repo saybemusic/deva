@@ -3,4 +3,6 @@ class Chat < ApplicationRecord
   has_one :program, dependent: :destroy
 
   belongs_to :user
+
+
 end
