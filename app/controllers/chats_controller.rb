@@ -22,10 +22,13 @@ class ChatsController < ApplicationController
     end
   end
 
-  def destroy
-    @chat = current_user.chat.find(params[:id])
-    @chat.destroy
-    redirect_to chats_path, notice: "Chat supprimé."
+ def destroy
+  @chat = current_user.chats.find(params[:id])
+  @chat.destroy
+
+  new_chat = current_user.chats.create(title: "Nouveau chat")
+
+  redirect_to chat_path(new_chat), notice: "Chat supprimé et un nouveau chat a été créé."
   end
 
   private

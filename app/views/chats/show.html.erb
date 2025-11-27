@@ -2,6 +2,10 @@
 <div class="container">
   <div class="col-8">
     <h2 class="mt-2 mb-3"><%= @chat.title %></h2>
+      <% if @chat.messages.any? %>
+      <%= button_to "Supprimer", chat_path(@chat), method: :delete, data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce chat ?" }, class: "btn btn-danger h-100" %>
+      <% end %>
+</div>
   </div>
 
   <div id="messages_container" class="overflow-auto col-8 border border-light rounded py-3 mb-3" style="height : 60vh">
@@ -25,8 +29,10 @@
     <% if @chat.messages.where(role: "assistant").count < 3 %>
       <div id="new_message_container">
         <%= simple_form_for [@chat, @message] do |f| %>
-          <%= f.input :content, label: false, required: true, placeholder: "Ecris ici ...", input_html: { id: "chat_input", class: "form-control w-75" } %>
-          <%= f.button :submit, 'Envoyer', class: 'btn btn-primary' %>
+          <div class="d-flex">
+            <%= f.input_field :content, placeholder: "Ecris ici ...",id: "chat_input", class: "form-control w-75 me-2" %>
+            <%= f.button :submit, 'Envoyer', class: 'btn btn-primary h-100' %>
+          </div>
         <% end %>
       </div>
     <% end %>
