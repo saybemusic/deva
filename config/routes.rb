@@ -20,14 +20,19 @@ Rails.application.routes.draw do
     resources :exercises, only: [:index, :show]
   end
 
-  resources :exercises do
-    resources :chat, only: [:create]
+  resources :exercises, only: [:index, :show] do
+    resources :chats, only: [:create]
   end
-
-
 
   resources :programs, only: [:destroy]
   resources :chats, only: [:destroy]
 
+  resources :exercises, only: [:index, :show] do
+  member do
+    patch :finish
+    end
+  end
+
+  get 'profile', to: 'users#show', as: 'profile'
 
 end

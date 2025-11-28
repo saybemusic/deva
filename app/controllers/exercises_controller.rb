@@ -6,13 +6,15 @@ class ExercisesController < ApplicationController
 
   def show
     @exercise = Exercise.find(params[:id])
-    # Soit on crée un chat, soit on récupère celui qui existe déjà pour cet exo
-    @chat = Chat.new
-    @chat.user = current_user
-    @chat.context = "exo"
-    @chat.save
+    @chat = @exercise.chats.find_by(user: current_user, context: "exo")
     @message = Message.new
-
   end
 
+  def finish
+    @exercise = Exercise.find(params[:id])
+    @exercise.update(finished: true)  # met à jour l'exercice et déclenche after_save pour le pourcentage
+
+    # Reste sur la page précédente (vue programme) après le clic
+    redirect_back fallback_location: program_path(@exercise.program), notice: "Exercice marqué comme terminé !"
+  end
 end

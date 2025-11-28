@@ -20,6 +20,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_28_094135) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "context"
+    t.bigint "exercise_id"
+    t.index ["exercise_id"], name: "index_chats_on_exercise_id"
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
@@ -71,6 +73,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_28_094135) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chats", "exercises"
   add_foreign_key "chats", "users"
   add_foreign_key "exercises", "programs"
   add_foreign_key "messages", "chats"

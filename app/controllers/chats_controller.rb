@@ -12,10 +12,22 @@ class ChatsController < ApplicationController
 
   def create
     @chat = Chat.new(title: Chat::DEFAULT_TITLE)
+    @chat.context = nil
     @chat.user = current_user
+    if params[:exercise_id].present?
+      @exercise = Exercise.find(params[:exercise_id])
+      @chat.exercise = @exercise
+      @chat.context = "exo"
+    else
+      @chat.context = "prog"
+    end
 
     if @chat.save
-      redirect_to chat_path(@chat)
+      if @chat.context == "exo"
+        redirect_to program_exercise_path(@chat.exercise.program, @chat.exercise)
+      else
+        redirect_to chat_path(@chat)
+      end
     else
       render root_path, status: :unprocessable_entity
     end

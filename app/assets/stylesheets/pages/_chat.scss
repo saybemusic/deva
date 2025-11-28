@@ -1,0 +1,27 @@
+.chatbot {
+  background-color: #f0f0f0;
+}
+
+.chatuser {
+  background-color: #0084ff;
+
+}
+
+.title-delete-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-center;
+  margin: 8px, 0, 0, 16px;
+}
+
+.title-delete-wrapper h2 {
+  margin: 0;
+  flex: 1;
+}
+
+.bin {
+  white-space: nowrap;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}

@@ -2,13 +2,13 @@
   <div class="col-8">
     <h2 class="mt-2 mb-3"><%= @exercise.title %></h2>
     <p><%= @exercise.content %></p>
-
   </div>
+
 
   <div id="messages_container"
        data-chat-target="messages" class="overflow-auto col-8 border border-light rounded py-3 mb-3" style="height: 60vh">
     <div class="container col6 d-flex justify-content-start">
-      <p class="w-auto py-2 px-5 bg-warning text-dark rounded">J'attends ta réponse ?</p>
+      <p class="w-auto py-2 px-5 bg-warning text-dark rounded">Votre réponse ?</p>
     </div>
 
     <% @chat.messages.each do |message| %>
@@ -18,14 +18,14 @@
         </div>
       <% else %>
         <div class="container col6 d-flex justify-content-start text-dark messageIA">
-          <span class="mb-3 py-2 px-5 bg-warning text-dark rounded"><%=message.last.content %></span>
+          <span class="mb-3 py-2 px-5 bg-warning text-dark rounded"><%=message.content%></span>
         </div>
       <% end %>
     <% end %>
   </div>
 
   <div class="col-8" data-chat-target="form">
-    <% if @chat.messages.where(role: "assistant").count < 1 %>
+    <% if @chat.messages.where(role: "assistant").count < 3 %>
       <div id="new_message_container">
         <%= simple_form_for [@chat, @message] do |f| %>
           <div class="d-flex">
@@ -37,4 +37,16 @@
     <% end %>
 
   </div>
+
+
 </div>
+
+
+<% unless @exercise.finished %>
+  <%= button_to "Exercice fait",
+    finish_exercise_path(@exercise),
+    method: :patch,
+    class: "btn btn-primary btn-sm" %>
+<% else %>
+  <p>L’exercice est terminé ✔</p>
+<% end %>
