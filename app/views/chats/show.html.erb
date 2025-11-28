@@ -31,13 +31,13 @@
     <% end %>
   </div>
 
-  <div class="col-8" data-chat-target="form">
+  <div class="col-8 p-0" data-chat-target="form">
     <% if @chat.messages.where(role: "assistant").count < 3 %>
       <div id="new_message_container">
         <%= simple_form_for [@chat, @message] do |f| %>
           <div class="d-flex">
             <%= f.input_field :content, placeholder: "Ecris ici ...", id: "chat_input", data: { chat_target: "input" }, class: "form-control w-75 me-2" %>
-            <%= f.button :submit, 'Envoyer', class: 'w-25 theme-toggle', id: 'theme-toggle' %>
+            <%= f.button :submit, 'Envoyer', class: 'w-25 me-0 theme-toggle', id: 'theme-toggle' %>
           </div>
         <% end %>
       </div>
