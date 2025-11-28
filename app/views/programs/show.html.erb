@@ -1,29 +1,26 @@
 <div class="container">
-  <div class="program-info mb-4" style="position: fixed; top: 170px; right: 8; width: 250px; z-index: 1000; ">
-    <p><strong>Ton niveau :</strong> <%= @program.difficulty %></p>
-    <p><strong>Langage souhaité :</strong> <%= @program.language %></p>
-    <p><strong>Complété :</strong> <%= @program.completion_percentage %>%</p>
-    <p><strong>Temps souhaité :</strong> <%= @program.time_constraint %></p>
-    <canvas id="program-progress" height="150"></canvas>
-  </div>
-
-  <div class="exercises-container"style="max-width: 900px; margin: 0 auto;">
-     <h1 class="program-show-title"><%= @program.title %></h1>
-    <% @program.exercises.each_with_index do |exercise, index| %>
-      <div class="exercise-card m-3 p-3">
-        <div class="d-flex justify-content-between align-items-start">
-          <%= link_to program_exercise_path(@program, exercise), class: "text-decoration-none" do %>
+<div class="program-info mb-4" style="position: fixed; top: 170px; right: 8; width: 250px; z-index: 1000; ">
+      <p><strong>Ton niveau :</strong> <%= @program.difficulty %></p>
+      <p><strong>Langage souhaité :</strong> <%= @program.language %></p>
+      <p><strong>Complété :</strong> <%= @program.completion_percentage %>%</p>
+      <p><strong>Temps souhaité :</strong> <%= @program.time_constraint %></p>
+      <canvas id="program-progress" height="150"></canvas>
+    </div>
+    <p><strong>Exercices :</strong></p>
+      <% @program.exercises.each_with_index do |exercise, index| %>
+        <div class="exercise-card card m-3 p-3">
+          <div class="d-flex justify-content-between align-items-start">
+          <%= link_to chats_path(exercise_id: exercise.id), method: :post, data: {turbo_method: :post }, class: "text-decoration-none" do %>
             <h4 class="mb-0"><%= index + 1 %> - <%= exercise.title %></h4>
           <% end %>
-
-          <% unless exercise.finished %>
-            <%= button_to "Exercice fait",
-                          finish_exercise_path(exercise),
-                          method: :patch,
-                          class: "btn btn-primary btn-sm" %>
-          <% else %>
-            <span class="badge bg-success">Terminé ✔</span>
-          <% end %>
+            <% unless exercise.finished %>
+              <%= button_to "Exercice fait",
+                            finish_exercise_path(exercise),
+                            method: :patch,
+                            class: "btn btn-primary btn-sm" %>
+            <% else %>
+              <span class="badge bg-success">Terminé ✔</span>
+            <% end %>
         </div>
 
         <p class="exercise-content mt-2"><%= exercise.content %></p>

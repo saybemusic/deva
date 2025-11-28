@@ -5,6 +5,8 @@ class ExercisesController < ApplicationController
 
   def show
     @exercise = Exercise.find(params[:id])
+    @chat = @exercise.chats.find_by(user: current_user, context: "exo")
+    @message = Message.new
   end
 
   def finish
