@@ -8,7 +8,8 @@
     </div>
     <p><strong>Exercices :</strong></p>
       <% @program.exercises.each_with_index do |exercise, index| %>
-        <div class="card m-3 p-3">
+        <div class="exercise-card card m-3 p-3">
+          <div class="d-flex justify-content-between align-items-start">
           <%= link_to chats_path(exercise_id: exercise.id), method: :post, data: {turbo_method: :post }, class: "text-decoration-none" do %>
             <h4 class="mb-0"><%= index + 1 %> - <%= exercise.title %></h4>
           <% end %>
@@ -22,7 +23,7 @@
             <% end %>
         </div>
 
-        <p class="mt-2"><%= exercise.content %></p>
+        <p class="exercise-content mt-2"><%= exercise.content %></p>
       </div>
     <% end %>
   </div>

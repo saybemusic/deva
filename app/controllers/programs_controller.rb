@@ -56,6 +56,7 @@ Renvie exactement un objet JSON de ce type :
 
   def create
     @chat = current_user.chats.find(params[:format])
+    @chat.context = "prog"
     ruby_llm = RubyLLM.chat
 
     user_messages = @chat.messages.where(role: "user").order(:created_at).limit(3)
