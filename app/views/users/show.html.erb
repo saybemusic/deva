@@ -30,14 +30,13 @@
         <% if @user.programs.where(difficulty: level).empty? %>
           <p class="text-muted fst-italic">Aucun programme pour ce niveau.</p>
         <% end %>
-
       </div>
     </div>
   <% end %>
 </div>
 
-<!-- Row séparée pour les graphiques -->
-<div class="row g-4 mt-3">
+<!-- Row des graphiques -->
+<div class="row g-4 mt-3" id="charts_container">
   <% ["Débutant", "Intermédiaire", "Avancé"].each do |level| %>
     <div class="col-md-4">
       <div class="card h-100 shadow-sm p-3">
@@ -50,28 +49,54 @@
 
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  <% ["Débutant", "Intermédiaire", "Avancé"].each do |level| %>
-    const ctx<%= level.downcase %> = document.getElementById('chart-<%= level.downcase %>').getContext('2d');
-    const completionAverage<%= level.downcase %> = <%= @user.programs.where(difficulty: level).average(:completion_percentage).to_f.round(2) rescue 0 %>;
 
-    new Chart(ctx<%= level.downcase %>, {
-      type: 'doughnut',
-      data: {
-        labels: ['Complété', 'Restant'],
-        datasets: [{
-          data: [completionAverage<%= level.downcase %>, 100 - completionAverage<%= level.downcase %>],
-          backgroundColor: ['#28a745', '#e0e0e0'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'bottom' }
-        }
+<!-- Script Turbo-friendly -->
+<script>
+  // Objet global pour stocker les graphiques
+  window.charts = window.charts || {};
+
+  function renderCharts() {
+    const levels = ["Débutant", "Intermédiaire", "Avancé"];
+    const completionAverages = [
+      <%= @user.programs.where(difficulty: "Débutant").average(:completion_percentage).to_f.round(2) rescue 0 %>,
+      <%= @user.programs.where(difficulty: "Intermédiaire").average(:completion_percentage).to_f.round(2) rescue 0 %>,
+      <%= @user.programs.where(difficulty: "Avancé").average(:completion_percentage).to_f.round(2) rescue 0 %>
+    ];
+
+    levels.forEach((level, index) => {
+      const canvasId = `chart-${level.toLowerCase()}`;
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+
+      // Détruire le graphique existant s'il y a
+      if (window.charts[canvasId]) {
+        window.charts[canvasId].destroy();
       }
+
+      const ctx = canvas.getContext('2d');
+      const completionAverage = completionAverages[index];
+
+      // Créer le nouveau graphique et stocker l'instance
+      window.charts[canvasId] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Complété', 'Restant'],
+          datasets: [{
+            data: [completionAverage, 100 - completionAverage],
+            backgroundColor: ['#28a745', '#e0e0e0'],
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
     });
-  <% end %>
-});
+  }
+
+  // Turbo : se déclenche à chaque chargement complet ou partiel
+  document.addEventListener("turbo:load", renderCharts);
+  document.addEventListener("turbo:frame-load", renderCharts);
 </script>
