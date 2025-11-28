@@ -93,6 +93,7 @@ Renvie exactement un objet JSON de ce type :
         )
         @exo.save
       end
+      @program.update_completion_percentage!
       redirect_to program_path(@program), notice: "Le programme a été créé avec succés."
     else
       render :new, status: :unprocessable_entity

@@ -1,29 +1,70 @@
 <div class="container">
-  <h1 class="program-show-title"><%= @program.title %></h1>
-
-
-  <div class="exercises-container">
-    <div class="program-info">
+<div class="program-info mb-4" style="position: fixed; top: 170px; right: 8; width: 250px; z-index: 1000; ">
       <p><strong>Ton niveau :</strong> <%= @program.difficulty %></p>
       <p><strong>Langage souhaité :</strong> <%= @program.language %></p>
       <p><strong>Complété :</strong> <%= @program.completion_percentage %>%</p>
       <p><strong>Temps souhaité :</strong> <%= @program.time_constraint %></p>
+      <canvas id="program-progress" height="150"></canvas>
     </div>
     <p><strong>Exercices :</strong></p>
-      <% @program.exercises.each do |exercise| %>
+      <% @program.exercises.each_with_index do |exercise, index| %>
         <div class="card m-3 p-3">
           <%= link_to chats_path(exercise_id: exercise.id), method: :post, data: {turbo_method: :post }, class: "text-decoration-none" do %>
-            <h4><%= exercise.title %></h4>
+            <h4 class="mb-0"><%= index + 1 %> - <%= exercise.title %></h4>
           <% end %>
-            <p><%= exercise.content %></p>
+            <% unless exercise.finished %>
+              <%= button_to "Exercice fait",
+                            finish_exercise_path(exercise),
+                            method: :patch,
+                            class: "btn btn-primary btn-sm" %>
+            <% else %>
+              <span class="badge bg-success">Terminé ✔</span>
+            <% end %>
+        </div>
+
+        <p class="mt-2"><%= exercise.content %></p>
       </div>
-      <% end %>
+    <% end %>
   </div>
 
-  <div class="actions">
+  <div class="actions mt-4">
     <%= link_to "Supprimer", program_path(@program),
-                data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" },
-                class: "btn-delete" %>
-    <%= link_to "Retour aux programmes", programs_path, class: "btn-back" %>
+                data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" },
+                class: "btn btn-danger me-2" %>
+    <%= link_to "Retour aux programmes", programs_path, class: "btn btn-secondary" %>
   </div>
 </div>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    const canvas = document.getElementById("program-progress");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    const completion = <%= @program.completion_percentage.to_f.round(2) %>;
+
+    // Détruire le graphique précédent si nécessaire
+    if (window.programChart) {
+      window.programChart.destroy();
+    }
+
+    window.programChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Complété', 'Restant'],
+        datasets: [{
+          data: [completion, 100 - completion],
+          backgroundColor: ['#28a745', '#e0e0e0'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  });
+</script>

@@ -36,10 +36,14 @@
       </div>
     <% end %>
 
-    <% if @chat.messages.where(role: "assistant").count == 3 %>
-      <%= button_to "Commencer la révision", programs_path(@chat), method: :post, class: "btn btn-success w-100 text-white" %>
-    <% end %>
   </div>
 
 
 </div>
+
+
+<% unless @exercise.finished %>
+  <%= button_to "Marquer comme terminé", finish_exercise_path(@exercise), method: :patch %>
+<% else %>
+  <p>L’exercice est terminé ✔</p>
+<% end %>
