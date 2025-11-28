@@ -1,7 +1,7 @@
 require 'json'
 
 class ProgramsController < ApplicationController
-  
+
   CREATEJSON = "Tu es un senior dev en Ruby.
 
 Ta réponse doit être UNIQUEMENT un objet JSON valide.
@@ -28,6 +28,7 @@ Renvie exactement un objet JSON de ce type :
 
   def show
     @program = Program.find(params[:id])
+
   end
 
   def new
@@ -67,7 +68,7 @@ Renvie exactement un objet JSON de ce type :
       Interprète cette réponse et renvoie toujours : Débutant, Intermédiaire ou Avancé."
 
     standardized_level = ruby_llm.with_instructions(niveau_prompt).ask(niveau).content
-    
+
     @ia_message = @chat.messages.where(role: "assistant").last
 
     @program = Program.new(

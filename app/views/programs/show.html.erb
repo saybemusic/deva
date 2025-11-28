@@ -12,7 +12,7 @@
     <p><strong>Exercices :</strong></p>
       <% @program.exercises.each do |exercise| %>
         <div class="card m-3 p-3">
-          <%= link_to program_exercise_path(@program, exercise), class: "text-decoration-none" do %>
+          <%= link_to chats_path(exercise_id: exercise.id), method: :post, data: {turbo_method: :post }, class: "text-decoration-none" do %>
             <h4><%= exercise.title %></h4>
           <% end %>
             <p><%= exercise.content %></p>
