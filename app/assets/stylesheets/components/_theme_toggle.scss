@@ -63,6 +63,10 @@ body.theme-light {
   background-color: #fff;
 }
 
+.theme-light .exercise-card {
+  background-color: #e9e7e7;
+}
+
 /* ===========================
    Thème sombre
 =========================== */
@@ -138,6 +142,18 @@ body.theme-light {
 
 .theme-dark #messages_container {
   background-color: #121212;
+}
+
+.theme-dark .exercises-container {
+  background-color: #1c1c1c;
+}
+
+.theme-dark .exercise-card {
+  background-color: #636363;
+}
+
+.theme-dark .exercise-content {
+  color: #fff;
 }
 
 /* ===========================
