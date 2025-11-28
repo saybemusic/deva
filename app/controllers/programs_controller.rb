@@ -1,7 +1,7 @@
 require 'json'
 
 class ProgramsController < ApplicationController
-  
+
   CREATEJSON = "Tu es un senior dev en Ruby.
 
 Ta réponse doit être UNIQUEMENT un objet JSON valide.
@@ -67,7 +67,7 @@ Renvie exactement un objet JSON de ce type :
       Interprète cette réponse et renvoie toujours : Débutant, Intermédiaire ou Avancé."
 
     standardized_level = ruby_llm.with_instructions(niveau_prompt).ask(niveau).content
-    
+
     @ia_message = @chat.messages.where(role: "assistant").last
 
     @program = Program.new(
@@ -92,6 +92,7 @@ Renvie exactement un objet JSON de ce type :
         )
         @exo.save
       end
+      @program.update_completion_percentage!
       redirect_to program_path(@program), notice: "Le programme a été créé avec succés."
     else
       render :new, status: :unprocessable_entity

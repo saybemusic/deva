@@ -1,2 +1,8 @@
 <h1><%= @exercise.title %></h1>
 <p><%= @exercise.content %></p>
+
+<% unless @exercise.finished %>
+  <%= button_to "Marquer comme terminé", finish_exercise_path(@exercise), method: :patch %>
+<% else %>
+  <p>L’exercice est terminé ✔</p>
+<% end %>
