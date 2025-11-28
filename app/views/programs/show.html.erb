@@ -6,7 +6,8 @@
       <p><strong>Temps souhaité :</strong> <%= @program.time_constraint %></p>
       <canvas id="program-progress" height="150"></canvas>
     </div>
-    <p><strong>Exercices :</strong></p>
+    <div class="exercises-container" style="max-width: 1000px; margin: 0 auto; margin-top: 70px;">
+    <h1 class="program-show-title"><%= @program.title %></h1>
       <% @program.exercises.each_with_index do |exercise, index| %>
         <div class="exercise-card card m-3 p-3">
           <div class="d-flex justify-content-between align-items-start">
@@ -27,7 +28,7 @@
       </div>
     <% end %>
   </div>
-
+</div>
   <div class="actions mt-4">
     <%= link_to "Supprimer", program_path(@program),
                 data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" },
