@@ -19,7 +19,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_28_113930) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "context"
     t.bigint "exercise_id"
     t.index ["exercise_id"], name: "index_chats_on_exercise_id"
     t.index ["user_id"], name: "index_chats_on_user_id"
