@@ -13,12 +13,16 @@
           </p>
 
           <div class="d-flex justify-content-between">
-            <%= link_to "Voir", program_path(program), class: "theme-toggle", id: "theme-toggle" %>
+            <p class = "bin mt-3">
+              <%= link_to "", program_path(program),
+                data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce chat ?" },
+                class: "fa-solid fa-trash " %>
+            </p>
             <%# <%= link_to "Supprimer",
               program_path(program),
               data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" },
               class: "theme-toggle" , id: "theme-toggle"%>
-            <%= button_to "Supprimer", program_path(program), method: :delete, data: { turbo_confirm: "Êtes-vous sûr ?" }, class: "theme-toggle" , id: "theme-toggle" %>
+            <%= button_to "Voir", program_path(program), class: "theme-toggle mt-4", id: "theme-toggle" %>
 
           </div>
 
