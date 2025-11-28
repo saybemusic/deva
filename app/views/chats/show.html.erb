@@ -1,25 +1,31 @@
 <div class="container" data-controller="chat">
   <div class="col-8">
-    <h2 class="mt-2 mb-3"><%= @chat.title %></h2>
-    <% if @chat.messages.any? %>
-      <%= button_to "Supprimer", chat_path(@chat), method: :delete, data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce chat ?" }, class: "btn btn-danger h-100" %>
-    <% end %>
+    <div class="title-delete-wrapper">
+      <h2 class="mt-2 mb-3"><%= @chat.title %></h2>
+      <% if @chat.messages.any? %>
+        <p class = "bin">
+        <%= link_to "", chat_path(@chat), method: :delete,
+                      data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce chat ?" },
+                      class: "fa-solid fa-trash " %>
+        </p>
+      <% end %>
+    </div>
   </div>
 
   <div id="messages_container"
-       data-chat-target="messages" class="overflow-auto col-8 border border-light rounded py-3 mb-3" style="height: 60vh">
+       data-chat-target="messages" class="overflow-auto col-8 border rounded py-3 mb-3" style="height: 60vh">
     <div class="container col6 d-flex justify-content-start">
-      <p class="w-auto py-2 px-5 bg-warning text-dark rounded">Selectionnez le langage que vous voulez apprendre ?</p>
+      <p class="chatbot w-auto py-2 px-5 text-dark rounded">Selectionnez le langage que vous voulez apprendre ?</p>
     </div>
 
     <% @chat.messages.each do |message| %>
       <% if message.role == "user" %>
         <div class="container col6 d-flex justify-content-end">
-          <p class="my-3 py-2 px-5 bg-success rounded"><%= message.content %></p>
+          <p class="chatuser my-3 py-2 px-5 rounded"><%= message.content %></p>
         </div>
       <% else %>
         <div class="container col6 d-flex justify-content-start text-dark messageIA">
-          <span class="mb-3 py-2 px-5 bg-warning text-dark rounded"><%= raw(render_markdown(message.content)) %></span>
+          <span class="chatbot mb-3 py-2 px-5 text-dark rounded"><%= raw(render_markdown(message.content)) %></span>
         </div>
       <% end %>
     <% end %>
@@ -31,14 +37,13 @@
         <%= simple_form_for [@chat, @message] do |f| %>
           <div class="d-flex">
             <%= f.input_field :content, placeholder: "Ecris ici ...", id: "chat_input", data: { chat_target: "input" }, class: "form-control w-75 me-2" %>
-            <%= f.button :submit, 'Envoyer', class: 'btn btn-primary h-100' %>
+            <%= f.button :submit, 'Envoyer', class: 'theme-toggle', id: 'theme-toggle' %>
           </div>
         <% end %>
       </div>
     <% end %>
-
-    <% if @chat.messages.where(role: "assistant").count == 3 %>
-      <%= button_to "Commencer la révision", programs_path(@chat), method: :post, class: "btn btn-success w-100 text-white" %>
-    <% end %>
+      <% if @chat.messages.where(role: "assistant").count == 3 %>
+          <%= button_to "Commencer la révision", programs_path(@chat), method: :post, class: 'w-100 theme-toggle', id: 'theme-toggle' %>
+      <% end %>
   </div>
 </div>
