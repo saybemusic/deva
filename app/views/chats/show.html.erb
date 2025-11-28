@@ -4,8 +4,8 @@
       <h2 class="mt-2 mb-3"><%= @chat.title %></h2>
       <% if @chat.messages.any? %>
         <p class = "bin">
-        <%= link_to "", chat_path(@chat), method: :delete,
-                      data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce chat ?" },
+        <%= link_to "", chat_path(@chat),
+                      data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce chat ?" },
                       class: "fa-solid fa-trash " %>
         </p>
       <% end %>
@@ -37,7 +37,7 @@
         <%= simple_form_for [@chat, @message] do |f| %>
           <div class="d-flex">
             <%= f.input_field :content, placeholder: "Ecris ici ...", id: "chat_input", data: { chat_target: "input" }, class: "form-control w-75 me-2" %>
-            <%= f.button :submit, 'Envoyer', class: 'theme-toggle', id: 'theme-toggle' %>
+            <%= f.button :submit, 'Envoyer', class: 'w-25 theme-toggle', id: 'theme-toggle' %>
           </div>
         <% end %>
       </div>
