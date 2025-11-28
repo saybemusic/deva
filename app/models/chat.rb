@@ -6,6 +6,7 @@ class Chat < ApplicationRecord
   has_one :program, dependent: :destroy
 
   belongs_to :user
+  belongs_to :exercise, optional: true
 
   def generate_title
     return unless title == DEFAULT_TITLE

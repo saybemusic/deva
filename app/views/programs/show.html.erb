@@ -6,24 +6,20 @@
       <p><strong>Temps souhaité :</strong> <%= @program.time_constraint %></p>
       <canvas id="program-progress" height="150"></canvas>
     </div>
-
-  <div class="exercises-container"style="max-width: 900px; margin: 0 auto;">
-     <h1 class="program-show-title"><%= @program.title %></h1>
-    <% @program.exercises.each_with_index do |exercise, index| %>
-      <div class="card m-3 p-3">
-        <div class="d-flex justify-content-between align-items-start">
-          <%= link_to program_exercise_path(@program, exercise), class: "text-decoration-none" do %>
+    <p><strong>Exercices :</strong></p>
+      <% @program.exercises.each_with_index do |exercise, index| %>
+        <div class="card m-3 p-3">
+          <%= link_to chats_path(exercise_id: exercise.id), method: :post, data: {turbo_method: :post }, class: "text-decoration-none" do %>
             <h4 class="mb-0"><%= index + 1 %> - <%= exercise.title %></h4>
           <% end %>
-
-          <% unless exercise.finished %>
-            <%= button_to "Exercice fait",
-                          finish_exercise_path(exercise),
-                          method: :patch,
-                          class: "btn btn-primary btn-sm" %>
-          <% else %>
-            <span class="badge bg-success">Terminé ✔</span>
-          <% end %>
+            <% unless exercise.finished %>
+              <%= button_to "Exercice fait",
+                            finish_exercise_path(exercise),
+                            method: :patch,
+                            class: "btn btn-primary btn-sm" %>
+            <% else %>
+              <span class="badge bg-success">Terminé ✔</span>
+            <% end %>
         </div>
 
         <p class="mt-2"><%= exercise.content %></p>
