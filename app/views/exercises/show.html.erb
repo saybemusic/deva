@@ -2,7 +2,10 @@
 <p><%= @exercise.content %></p>
 
 <% unless @exercise.finished %>
-  <%= button_to "Marquer comme terminé", finish_exercise_path(@exercise), method: :patch %>
+  <%= button_to "Exercice fait",
+    finish_exercise_path(@exercise),
+    method: :patch,
+    class: "btn btn-primary btn-sm" %>
 <% else %>
   <p>L’exercice est terminé ✔</p>
 <% end %>
